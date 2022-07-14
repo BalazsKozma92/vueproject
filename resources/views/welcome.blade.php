@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
 </head>
-<body class="mb-48 text-white bg-[#2B2B2B]">
+<body class="mb-48 text-white bg-[#191919]">
 <div id="app">
     <welcome/>
 </div>

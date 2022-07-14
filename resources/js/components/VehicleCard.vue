@@ -1,21 +1,21 @@
 <template>
-    <div class='bg-gray-500 border border-gray-200 rounded p-6'>
+    <div class='bg-[#111827] border border-gray-200 rounded p-6 border-0.5'>
     <div class="flex">
-        <div>
-            <div class="space-x-4 flex">
-                <h2 class="font-bold">
-                    {{ vehicle.name }}
-                </h2><p>|</p>
-                <p>Tengelyek száma: {{ Object.keys(yaml).length }}</p><p>|</p>
-                <p>Létrehozva: {{ format_date(vehicle.created_at) }}</p><p>|</p>
-                <p>Szerkesztve: {{ format_date(vehicle.updated_at) }}</p>
+
+        <div class="space-x-4 flex text-[#9CA3AF] text-base grid grid-cols-5 place-items-center">
+            <h2 class="font-bold text-lg text-white">
+                {{ vehicle.name }}
+            </h2>
+            <p>Tengelyszám: <span class="font-bold">{{ Object.keys(yaml).length }}</span></p>
+            <p>Létrehozva: <span class="font-bold">{{ format_date(vehicle.created_at) }}</span></p>
+            <p>Szerkesztve: <span class="font-bold">{{ format_date(vehicle.updated_at) }}</span></p>
+            <div class="space-x-5">
+                <router-link class="text-green-500" :to="{ name: 'edit', params: { id: vehicle.id }}"><i class="fa-solid fa-pencil"></i> </router-link>
+                <button class="text-red-500" @click="deleteEntry"><i class="fa-solid fa-trash"></i> </button>
             </div>
-            <div class="bg-gray-700 border border-gray-200 rounded mt-4 p-2 flex space-x-6">
-                <router-link class="text-green-500" :to="{ name: 'edit', params: { id: vehicle.id }}"><i class="fa-solid fa-pencil"></i> Szerkesztés</router-link>
-                <button class="text-red-500" @click="deleteEntry">Törlés</button>
-            </div>
-            <input type="hidden" v-model="vehicle.id">
         </div>
+
+        <input type="hidden" v-model="vehicle.id">
     </div>
 </div>
 </template>
@@ -39,7 +39,7 @@ import EditVehicle from './EditVehicle'
         methods: { 
             format_date(value){
                 if (value) {
-                    return moment(String(value)).format('YYYY.MM.DD')
+                    return moment(String(value)).format('YY.MM.DD')
                 }
             },
             deleteEntry() {

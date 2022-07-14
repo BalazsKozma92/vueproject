@@ -15,14 +15,15 @@
             </div>
             <div class="mb-6">
                 <button
-                    class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+                    class="bg-zinc-800 text-white rounded py-2 px-4 hover:bg-zinc-600">
                     Új jármű hozzáadása
                 </button>
             </div>
         </form>
     </div>
-    <div>
-        <h3 class="text-center" v-if="vehicles.length > 0">Járművek</h3><br/>
+    <div class="mr-44 ml-44">
+        <h3 class="text-2xl ml-5" v-if="vehicles.length > 0">Járművek</h3><br/>
+        <hr class="border-1 border-neutral-200 border-opacity-20 mb-5 ml-5 mr-5">
         <div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
             <div v-for="(vehicle, index) in vehicles" :key="index">
                 <vehicle-card :vehicle="vehicle" :yaml="yamlContents[vehicle.id - 1]['other_values']"/>
