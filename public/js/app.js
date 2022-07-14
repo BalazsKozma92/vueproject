@@ -20451,7 +20451,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "for": ['boogie_'] + mainIndex
     }, _hoisted_35, 8
     /* PROPS */
-    , _hoisted_33)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_36)), mainIndex == Object.keys(_ctx.yamlContents['other_values']).length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+    , _hoisted_33)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_36)), mainIndex == Object.keys(_ctx.yamlContents['other_values']).length - 1 && Object.keys(_ctx.yamlContents['other_values']).length != 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       id: "newAxleButton",
       "class": "bg-stone-900 text-cyan-500 w-6 h-6 rounded-full border-2 text-2xl inline-flex flex-col justify-center items-center pb-2 text-md",
       disabled: !_ctx.canEdit

@@ -138,7 +138,7 @@ input[type=checkbox] {
 
                     </div>
 
-                    <div class="col-span-2 flex justify-center" v-if="mainIndex == Object.keys(yamlContents['other_values']).length - 1">
+                    <div class="col-span-2 flex justify-center" v-if="mainIndex == Object.keys(yamlContents['other_values']).length - 1 && Object.keys(yamlContents['other_values']).length != 1">
                         <a id="newAxleButton" class="bg-stone-900 text-cyan-500 w-6 h-6 rounded-full border-2 text-2xl inline-flex flex-col justify-center items-center pb-2 text-md" :disabled="!canEdit" v-on="canEdit ? { click: removeAxle } : {}" :class="{'hover:bg-stone-700 cursor-pointer': canEdit}">
                             -
                         </a>

@@ -19,9 +19,16 @@ class VehicleController extends Controller
     }
 
     public function getYaml() {
-        if (file_exists(base_path().'/storage/app/public/construct/save/vehicles.yml')) {
-            $yamlContents = Yaml::parse(file_get_contents(base_path().'/storage/app/public/construct/save/vehicles.yml'));
+        if (!file_exists(base_path().'/storage/app/public/construct/save/vehicles.yml')) {
+            mkdir(base_path().'/storage/app/public/construct/save', 0777, true);
+            fopen(base_path().'/storage/app/public/construct/save/vehicles.yml', 'w');
         }
+        
+        if (!file_exists(base_path().'/storage/app/public/construct/save/vehicles_temp.yml')) {
+            fopen(base_path().'/storage/app/public/construct/save/vehicles_temp.yml', 'w');
+        }
+
+        $yamlContents = Yaml::parse(file_get_contents(base_path().'/storage/app/public/construct/save/vehicles.yml'));
 
         $yaml = Yaml::dump($yamlContents);
         file_put_contents(base_path().'/storage/app/public/construct/save/vehicles_temp.yml', $yaml);
