@@ -1,3 +1,59 @@
+<style>
+input[type=checkbox] {
+  visibility: hidden;
+}
+.checkbox_circle {
+  position: relative;
+}
+.checkbox_circle label {
+  cursor: pointer;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0px;
+  top: 5px;
+  border-radius: 999px;
+  border: 1px solid grey;
+}
+.main_checkbox label {
+    left: 48px;
+}
+.checkbox_circle label span{
+  position: absolute;
+  left: 25px;
+  font-size: 15px;
+  top: -5px;
+}
+.main_checkbox label span{
+    width: 300px;
+}
+.checkbox_circle label:after {
+  filter: alpha(opacity=0);
+  opacity: 0;
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: rgb(71, 164, 250);
+  border-radius: 999px;
+}
+.checkbox_circle label:hover::after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+  opacity: 0.3;
+}
+.checkbox_circle input[type=checkbox]:checked + label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.checkbox_circle input[type=checkbox]:checked + label {
+  border-color: grey;
+}
+</style>
+
 <template>
     <div class="p-25 rounded max-w-6xl mx-auto mt-24">
         <header class="text-center">
@@ -22,10 +78,11 @@
                 <div class="flex items-center mb-4">
                     <img class="w-16 logo border-blue" src="/images/axle.webp" alt=""/>
                     <p class="uppercase font-bold text-lg ml-2">Gumiabroncs és beállítások</p>
-                    <div class="">
-                        <input id="checkbox" type="checkbox" name="checkbox" class="ml-10 w-4 h-4 rounded-full" v-model="canEdit">
-                        <label for="checkbox" class="font-bold text-sm ml-1">
-                            Tengely szerkesztés engedélyezése
+                    <div class="checkbox_circle main_checkbox">
+                        <input id="checkbox" type="checkbox" name="checkbox" v-model="canEdit">
+                        <!-- <label for="checkbox" class="font-bold text-sm ml-1 w-5 h-5 bg-white border border-solid border-slate-600 rounded-full cursor-pointer absolute left-16 top-1" :class="{'bg-blue-600': canEdit}"> -->
+                        <label for="checkbox">
+                            <span>Tengely szerkesztés engedélyezése</span>
                         </label>
                     </div>
                 </div>
@@ -49,7 +106,7 @@
                         <label class="block text-gray-400 text-sm">
                             Kerekek
                         </label>
-                        <select :id="mainIndex" name="tyres" class="rounded gray bg-stone-900 border pl-2 pr-6 py-2 rounded-lg" :disabled="!canEdit" v-on:click="somethingChanged($event)">
+                        <select :id="['tyres_'] + mainIndex" name="tyres" class="rounded gray bg-stone-900 border pl-2 pr-6 py-2 rounded-lg" :disabled="!canEdit" v-on:click="somethingChanged($event)">
                             <option value="1" v-if="mainIndex < 2" :selected="yamlContent['tyres'] == 1">1</option>
                             <option value="2" :selected="yamlContent['tyres'] == 2">2</option>
                             <option value="4" :selected="yamlContent['tyres'] == 4">4</option>
@@ -57,24 +114,24 @@
                         </select>
                     </div>
 
-                    <div>
-                        <input type="checkbox" :id="mainIndex" name="hajtott" value=1 :checked="yamlContent['hajtott'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
-                        <label for=hajtott>
-                            hajtott
+                    <div class="checkbox_circle">
+                        <input type="checkbox" :id="['hajtott_'] + mainIndex" name="hajtott" :checked="yamlContent['hajtott'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
+                        <label :for="['hajtott_'] + mainIndex">
+                            <span>hajtott</span>
                         </label>
                     </div>
 
-                    <div>
-                        <input type="checkbox" :id="mainIndex" name="kormanyzott" value=1 :checked="yamlContent['kormanyzott'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
-                        <label for=kormanyzott>
-                            kormányzott
+                    <div class="checkbox_circle">
+                        <input type="checkbox" :id="['kormanyzott_'] + mainIndex" name="kormanyzott" :checked="yamlContent['kormanyzott'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
+                        <label :for="['kormanyzott_'] + mainIndex">
+                            <span>kormányzott</span>
                         </label>
                     </div>
 
-                    <div v-if="mainIndex != 0">
-                        <input type="checkbox" :id="mainIndex" name="boogie" value=1 :checked="yamlContent['boogie'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
-                        <label for="boogie">
-                            boogie
+                    <div v-if="mainIndex != 0" class="checkbox_circle">
+                        <input type="checkbox" :id="['boogie_'] + mainIndex" name="boogie" :checked="yamlContent['boogie'] == true" :disabled="!canEdit" v-on:click="somethingChanged($event)">
+                        <label :for="['boogie_'] + mainIndex">
+                            <span>boogie</span>
                         </label>
                     </div>
                     <div v-else>
@@ -135,8 +192,10 @@ import { useRoute } from 'vue-router';
         },
         methods: {
             somethingChanged(event) {
+                console.log(event.currentTarget);
+                let targetId = (event.currentTarget.id).split('_')[1];
                 let changedValue = event.currentTarget.name == "tyres" ? parseInt(event.currentTarget.value) : event.currentTarget.checked;
-                this.yamlContents['other_values'][event.currentTarget.id][event.currentTarget.name] = changedValue;
+                this.yamlContents['other_values'][targetId][event.currentTarget.name] = changedValue;
                 this.setTyreNumbers()
             }, 
             updateVehicle() {
